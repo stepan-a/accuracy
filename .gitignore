@@ -1,0 +1,29 @@
+# Dynare: a +<name> package and a <name> folder per .mod file run in mod/
+mod/+*/
+mod/*/
+!mod/export/
+!mod/results/
+mod/*.log
+mod/ctx_*.mat
+
+# Results: the .tex, .csv and dynare.hash files are versioned, the rest is not
+mod/results/*.mat
+mod/results/*.stamp
+
+# LaTeX
+tex/*.aux
+tex/*.log
+tex/*.nav
+tex/*.out
+tex/*.snm
+tex/*.toc
+tex/*.vrb
+tex/*.synctex.gz
+tex/*.rubbercache
+tex/git.hash
+tex/accuracy.pdf
+tex/auto/
+
+# Editors and local tools
+*~
+.claude-denote-ref

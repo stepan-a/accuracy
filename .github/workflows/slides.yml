@@ -1,0 +1,46 @@
+# Builds the slides from the versioned results (no MATLAB needed) and, on a push
+# to master, publishes the PDF as the asset of the release "latest":
+# https://github.com/stepan-a/accuracy/releases/latest/download/accuracy.pdf
+
+name: slides
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install LaTeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends make rubber \
+            texlive-latex-base texlive-latex-recommended texlive-latex-extra \
+            texlive-pictures texlive-fonts-recommended texlive-fonts-extra \
+            texlive-lang-english cm-super lmodern
+
+      - name: Build the slides
+        run: make slides
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: accuracy
+          path: tex/accuracy.pdf
+
+      - name: Publish the release "latest"
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete latest --yes --cleanup-tag || true
+          gh release create latest tex/accuracy.pdf --target "$GITHUB_SHA" \
+            --title "Slides (latest)" \
+            --notes "Built from ${GITHUB_SHA::9} by the slides workflow."

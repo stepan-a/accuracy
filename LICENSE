@@ -1,0 +1,19 @@
+Licensing of this repository
+============================
+
+Code: GPL-3.0-or-later
+----------------------
+
+The examples and helpers in mod/ (several .mod files are adapted from the test
+suite of Dynare, https://www.dynare.org), the Makefile and the continuous
+integration configuration in .github/ are free software: you can redistribute
+them and/or modify them under the terms of the GNU General Public License as
+published by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version. See COPYING.
+
+Slides: CC0-1.0
+---------------
+
+The slides in tex/ and the results they read in mod/results/ are dedicated to
+the public domain under the Creative Commons CC0 1.0 Universal dedication, as
+stated in the footer of the slides. See tex/LICENSE.
